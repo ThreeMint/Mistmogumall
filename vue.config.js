@@ -1,4 +1,4 @@
-module.exprot = {
+module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
@@ -7,6 +7,7 @@ module.exprot = {
         'components': '@/components',
         'network': '@/network',
         'views': '@/views',
+        'plugins': '@/plugins'
       }
     }
   }

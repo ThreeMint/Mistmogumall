@@ -1,26 +1,25 @@
 <template>
   <div id="app">
-    <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button>el-button</el-button>
-    </div>
+    <keep-alive exclude="Detail">
+      <router-view />
+    </keep-alive>
+    <main-tab-bar />
   </div>
 </template>
 
 <script>
-
+// components\content\mainTabbar\MainTabBar.vue
+// import MainTabBar from 'components/content/mainTabbar/MainTabBar'
+import MainTabBar from "components/content/maintabbar/MainTabBar";
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    
+    MainTabBar
   }
-}
+};
 </script>
 
-<style>
-
+<style scoped>
+/*css 引入方式*/
+@import "assets/css/base.css";
 </style>
