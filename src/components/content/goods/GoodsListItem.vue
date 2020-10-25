@@ -1,7 +1,7 @@
 <template>
   <div class="goods-item" @click="itemClick">
     <!-- @load="imageLoad"监听图片加载，这里每加载一个图片，则执行该绑定的函数 -->
-    <img :src="showImage" alt @load="imageLoad" />
+    <img v-lazy="showImage" @load="imageLoad" />
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
