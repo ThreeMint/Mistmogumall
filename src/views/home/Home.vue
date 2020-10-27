@@ -5,6 +5,7 @@
         <div>购物天堂</div>
       </template>
     </nav-bar>
+
     <tab-controll
       :titles="['热门','精选','优惠']"
       @tabClick="tabClick"
