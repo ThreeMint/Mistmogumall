@@ -10,7 +10,12 @@
       <detail-comment-info ref="comment" :comment-info="commentInfo" />
       <goods-list ref="goods" :goods="recommends" />
     </scroll>
-    <detail-bottom-bar />
+    <!-- v-on:addCart 的语法糖是 @addCart -->
+    <detail-bottom-bar @addCart="addToCart" />
+    <back-top @click.native="backClick" v-show="isShowBackTop" />
+
+    <!-- 使用了 封装组件 -->
+    <!-- <toast :message="message" :show="show" /> -->
   </div>
 </template>
 
@@ -26,6 +31,11 @@ import DetailBottomBar from "./childComps/DetailBottomBar";
 
 import Scroll from "components/common/scroll/Scroll";
 import GoodsList from "components/content/goods/GoodsList";
+import BackTop from "components/content/backTop/BackTop";
+
+// 使用了 封装组件
+// import Toast from "components/common/toast/toast";
+
 //网络请求相关
 import {
   getDetail,
@@ -50,7 +60,9 @@ export default {
     DetailCommentInfo,
     DetailBottomBar,
     Scroll,
-    GoodsList
+    GoodsList,
+    BackTop
+    // Toast
   },
   data() {
     return {
@@ -63,9 +75,12 @@ export default {
       commentInfo: {},
       recommends: [],
       themeTopYs: [],
-      currentIndex: 0
+      currentIndex: 0,
       //这里因为和detail使用相同的变量，同样可以抽取到Minxin
       // itemImageListener: null
+      isShowBackTop: false
+      /*  message: "", //Toast相关
+      show: false //Toast相关 */
     };
   },
   //混入属性， 这里用于抽取重复代码，mounted中的
@@ -195,6 +210,32 @@ export default {
           this.$refs.nav.currentIndex = this.currentIndex;
         }
       }
+
+      //3.判断返回按钮是否显示
+      this.isShowBackTop = -position.y > 1000;
+    },
+    backClick() {
+      // this.$refs.scroll获取的是组件,里面有方法
+      this.$refs.scroll.scrollTo(0, 0, 300);
+    },
+    addToCart() {
+      // 1.获取购物车要展示的信息，不必全部
+      const product = {};
+      product.iid = this.id;
+      product.image = this.topImages[0];
+      product.title = this.goods.title;
+      product.desc = this.goods.desc;
+      product.price = this.goods.realPrice;
+
+      // 2.将商品添加到购物车
+      // $store.commit()响应的是mutations
+      // this.$store.commit("addCart", product);
+
+      // $store.dispatch()响应的是actions，它可以返回一个promise
+      this.$store.dispatch("addCart", product).then(res => {
+        // 这里使用的是自定义插件
+        this.$toast.show(res, 1500);
+      });
     }
   }
 };
