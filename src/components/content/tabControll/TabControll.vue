@@ -1,13 +1,13 @@
 <template>
   <div class="tab-controll">
     <div
-      v-for="(item,index) in titles"
+      v-for="(item, index) in titles"
       :key="index"
       class="tab-controll-item"
-      :class="{active: index === currentIndex}"
+      :class="{ active: index === currentIndex }"
       @click="itemClick(index)"
     >
-      <span>{{item}}</span>
+      <span>{{ item }}</span>
     </div>
   </div>
 </template>
@@ -20,21 +20,20 @@ export default {
       type: Array,
       default() {
         return [];
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      currentIndex: 0
+      currentIndex: 0,
     };
   },
   methods: {
     itemClick(index) {
       this.currentIndex = index;
-      //子传父 emit
       this.$emit("tabClick", index);
-    }
-  }
+    },
+  },
 };
 </script>
 

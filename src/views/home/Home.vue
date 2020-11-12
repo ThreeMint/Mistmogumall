@@ -13,9 +13,6 @@
       class="tab-controll-fixed"
       v-show="isShowTabControl"
     />
-
-    <!-- @scroll="contentScroll" 是子传父,@scroll是在子组件自定义,"contentScroll"是父组件定义接收-->
-    <!-- @pullingUp="loadmore" 上拉加载更多，目前已取消 -->
     <scroll
       class="content"
       ref="scroll"
@@ -27,7 +24,6 @@
       <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad" />
       <recommend-view :recommends="recommends" />
       <feature-view />
-      <!--  class="tab-controll" -->
       <tab-controll :titles="['热门','精选','优惠']" @tabClick="tabClick" ref="tabControl" />
       <goods-list :goods="showGoods" />
     </scroll>
@@ -57,7 +53,6 @@ import { itemListenerMixin } from "common/mixin";
 export default {
   name: "Home",
   components: {
-    // MainSwiper,
     HomeSwiper,
     RecommendView,
     FeatureView,
@@ -103,24 +98,8 @@ export default {
     this.getHomeGoods("sell");
   },
   mounted() {
-    //这里使用了vue中的mixin属性混入: [itemListenerMixin],
-    /**
-     // 3.监听item中图片加载完成
-    const refresh = debounce(this.$refs.scroll.refresh, 50);
-    // 3.1 保存到itemImageListener变量
-    this.itemImageListener = () => {
-      // this.$refs.scroll.refresh();
-      refresh();
-    };
-    // 3.2 执行
-    this.$bus.$on("itemImageLoad", this.itemImageListener);
-     */
-    // 获取tabControl的offsetTop,但是这里的值不正确，image可能没有渲染完成
-    // this.tabOffsetTop = this.$refs.tabControl
   },
   activated() {
-    //激活
-    // this.$refs.scroll.refresh();
     this.$refs.scroll.scrollTo(0, this.saveY, 0);
   },
   deactivated() {
@@ -132,16 +111,9 @@ export default {
     this.$bus.$off("itemImageLoad", this.itemImageListener);
   },
   destroyed() {
-    //销毁
   },
 
   methods: {
-    /**事件监听 */
-    // 重要：防抖函数,这里用于当一个函数调用频繁，用来节流，防止多次调用
-    // 当设置一个定时器后，每次加载图片都会执行
-    // debounce(func, delay) {
-    //  ....
-    // },
     tabClick(index) {
       switch (index) {
         case 0:
@@ -158,7 +130,6 @@ export default {
       this.$refs.tabControl2.currentIndex = index;
     },
     backClick() {
-      // this.$refs.scroll获取的是组件,里面有方法
       this.$refs.scroll.scrollTo(0, 0);
     },
     // 组件距离判断
@@ -175,9 +146,6 @@ export default {
     },
     swiperImageLoad() {
       //当轮播图片加载完成，再获取距离
-      //动态赋值，tabcontrol栏与顶部的距离
-      // console.log(this.$refs.tabControl.$el.offsetTop);
-
       this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop;
     },
     /**网络请求 */
@@ -203,17 +171,10 @@ export default {
 
 <style scoped>
 #home {
-  /* padding-top: 44px; */
-  /* padding-bottom: 800px; */
   height: 100vh;
   position: relative;
 }
 .home-nav {
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9; */
   background-color: var(--color-tint);
   color: #fff;
 }
@@ -221,19 +182,6 @@ export default {
   position: relative;
   z-index: 9;
 }
-/* sticky太新了，不兼容 */
-/* .tab-controll {
-  position: sticky;
-  top: 44px;
-  z-index: 11;
-} */
-
-/* 两种方案, 整个视口减去上下的栏,剩下中间的 */
-/* .content {
-  height: calc(100% - 93px);
-  margin-top: 44px;
-  overflow: hidden;
-} */
 .content {
   position: absolute;
   top: 44px;

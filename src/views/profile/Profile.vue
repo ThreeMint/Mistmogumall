@@ -8,7 +8,12 @@
       </div>
       <!-- 头像pic -->
       <div class="user-info">
-        <van-image round width="100px" height="100px" :src="require('assets/img/user/1.jpg')" />
+        <van-image
+          round
+          width="100px"
+          height="100px"
+          :src="require('assets/img/user/1.jpg')"
+        />
         <span>阿雾Ripples</span>
       </div>
       <div class="user-detail">
@@ -33,7 +38,12 @@
 
     <div class="user-list">
       <div class="list-item order">
-        <van-cell class="item-title" title="我的订单" is-link value="查看全部订单" />
+        <van-cell
+          class="item-title"
+          title="我的订单"
+          is-link
+          value="查看全部订单"
+        />
         <div class="order-info">
           <div class="order-info-item">
             <van-icon name="pending-payment" size="24" color="#ff8198" />
@@ -55,7 +65,12 @@
       </div>
 
       <div class="list-item tools">
-        <van-cell class="item-title" title="必备工具" is-link value="查看全部工具" />
+        <van-cell
+          class="item-title"
+          title="必备工具"
+          is-link
+          value="查看全部工具"
+        />
         <div class="order-info">
           <div class="order-info-item">
             <van-icon name="video" size="24" color="#ff8198" />
@@ -81,7 +96,7 @@
 
 <script>
 export default {
-  name: "Profile"
+  name: "Profile",
 };
 </script>
 
@@ -117,7 +132,6 @@ export default {
 .user-detail {
   display: flex;
   margin: 20px 0 20px;
-  /* padding: 0 25px; */
   color: #eee;
 }
 .user-detail-item {
@@ -142,7 +156,6 @@ export default {
 }
 .order-info {
   display: flex;
-  /* margin: 10px 0 10px; */
   padding: 10px;
 }
 .order-info-item {
