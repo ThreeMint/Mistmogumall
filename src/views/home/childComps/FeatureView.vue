@@ -8,13 +8,12 @@
 
 <script>
 export default {
-  name: "FeatureView"
+  name: "FeatureView",
 };
 </script>
 
 <style>
 .feature img {
   width: 100%;
-  /* background-color: rgb(158, 58, 58); */
 }
 </style>
