@@ -1,18 +1,22 @@
 <template>
   <div>
-    <van-swipe :autoplay="3000">
-      <van-swipe-item v-for="(ban, index) in banners" :key="index">
+    <!-- van- -->
+    <!-- <swiper :autoplay="3000">
+      <swiper-item v-for="(ban, index) in banners" :key="index">
         <a href="#">
           <img :src="ban.image" @load="imageLoad" />
         </a>
-      </van-swipe-item>
-    </van-swipe>
+      </swiper-item>
+    </swiper> -->
+
+    <main-swiper :banners="banners" />
   </div>
 </template>
 
 <script>
+import MainSwiper from "components/content/mainswiper/MainSwiper";
 //轮播图用的ui框架里的
-import { Swiper, SwiperItem } from "components/common/swiper";
+// import { Swiper, SwiperItem } from "components/common/swiper";
 
 export default {
   name: "HomeSwiper",
@@ -30,8 +34,9 @@ export default {
     };
   },
   components: {
-    Swiper,
-    SwiperItem,
+    // Swiper,
+    // SwiperItem,
+    MainSwiper,
   },
   methods: {
     imageLoad() {

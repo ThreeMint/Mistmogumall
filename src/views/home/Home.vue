@@ -7,7 +7,7 @@
     </nav-bar>
 
     <tab-controll
-      :titles="['热门','精选','优惠']"
+      :titles="['热门', '精选', '优惠']"
       @tabClick="tabClick"
       ref="tabControl2"
       class="tab-controll-fixed"
@@ -24,7 +24,11 @@
       <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad" />
       <recommend-view :recommends="recommends" />
       <feature-view />
-      <tab-controll :titles="['热门','精选','优惠']" @tabClick="tabClick" ref="tabControl" />
+      <tab-controll
+        :titles="['热门', '精选', '优惠']"
+        @tabClick="tabClick"
+        ref="tabControl"
+      />
       <goods-list :goods="showGoods" />
     </scroll>
 
@@ -61,7 +65,7 @@ export default {
     TabControll,
     GoodsList,
     Scroll,
-    BackTop
+    BackTop,
   },
   data() {
     return {
@@ -70,13 +74,13 @@ export default {
       goods: {
         pop: { page: 0, list: [] },
         new: { page: 0, list: [] },
-        sell: { page: 0, list: [] }
+        sell: { page: 0, list: [] },
       },
       currentType: "pop",
       isShowBackTop: false,
       tabOffsetTop: 0,
       isShowTabControl: false,
-      saveY: 0
+      saveY: 0,
       //这里因为和detail使用相同的变量，同样可以抽取到Minxin
       // itemImageListener: null,
     };
@@ -87,7 +91,7 @@ export default {
   computed: {
     showGoods() {
       return this.goods[this.currentType].list;
-    }
+    },
   },
   created() {
     // 1.请求多个数据,异步操作,这里调用的是methods
@@ -97,8 +101,7 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
-  mounted() {
-  },
+  mounted() {},
   activated() {
     this.$refs.scroll.scrollTo(0, this.saveY, 0);
   },
@@ -110,8 +113,7 @@ export default {
     // 会导致home里也调用refresh()，这里目的是在detail中，不让home调用refresh()函数
     this.$bus.$off("itemImageLoad", this.itemImageListener);
   },
-  destroyed() {
-  },
+  destroyed() {},
 
   methods: {
     tabClick(index) {
@@ -136,6 +138,7 @@ export default {
     contentScroll(position) {
       //1.判断返回按钮是否显示
       this.isShowBackTop = -position.y > 1000;
+      this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop;
       //2.判断tabControll是否吸顶
       this.isShowTabControl = -position.y > this.tabOffsetTop;
     },
@@ -150,22 +153,22 @@ export default {
     },
     /**网络请求 */
     getHomeMultidata() {
-      getHomeMultidata().then(res => {
+      getHomeMultidata().then((res) => {
         this.banners = res.data.banner.list;
         this.recommends = res.data.recommend.list;
       });
     },
     getHomeGoods(type) {
       const page = this.goods[type].page + 1;
-      getHomeGoods(type, page).then(res => {
+      getHomeGoods(type, page).then((res) => {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
 
         // 上拉加载
         this.$refs.scroll.finishPullUp();
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

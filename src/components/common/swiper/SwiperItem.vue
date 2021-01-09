@@ -12,17 +12,20 @@
 <script>
 export default {
   name: "SwiperItem",
+  components: {},
   data() {
     return {
-      fit: "contain"
+      fit: "contain",
     };
   },
   props: {
     bannerArry: {
       type: Array,
-      default: []
-    }
-  }
+      default() {
+        return [];
+      },
+    },
+  },
 };
 </script>
 

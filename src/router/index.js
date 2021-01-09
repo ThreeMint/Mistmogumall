@@ -37,6 +37,8 @@ const routes = [{
 ]
 
 const router = new VueRouter({
+  //部署多项目使用
+  base: '/mall/',
   routes,
   mode: 'history'
 })
